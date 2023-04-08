@@ -5,6 +5,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import jg.actionfigures.server.constants.Constants;
+
+import javax.crypto.SecretKey;
+
+import org.apache.tomcat.util.bcel.Const;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,17 +17,18 @@ import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import jg.actionfigures.server.API.UserRepository;
 import jg.actionfigures.server.Models.User;
 
 @Service
 public class AuthService {
 
-    private static final String JWT_SECRET = "secret_key";
+    private static final String JWT_SECRET = "$2a$10$Gl76HlY4KBi/9cCB4RP5suTnPN9yCvlwVCccljYp21RAMgKo2mkJ.";
     private static final long JWT_EXPIRATION_MS = 3600000L;
     private static final String REDIS_USER_KEY_PREFIX = "user:";
     private static final long REDIS_USER_EXPIRATION_MS = 86400000L;
+    private static SecretKey key = Keys.hmacShaKeyFor(JWT_SECRET.getBytes());
 
     @Autowired
     private UserRepository userRepository;
@@ -65,7 +71,7 @@ public class AuthService {
 
     public void logout(String token) {
         Claims claims = Jwts.parser()
-                .setSigningKey(JWT_SECRET)
+                .setSigningKey(key)
                 .parseClaimsJws(token)
                 .getBody();
         String userLogin = claims.getSubject();
@@ -74,7 +80,7 @@ public class AuthService {
 
     public User getUserFromToken(String token) throws Exception {
         Claims claims = Jwts.parser()
-                .setSigningKey(JWT_SECRET)
+                .setSigningKey(key)
                 .parseClaimsJws(token)
                 .getBody();
         String userLogin = claims.getSubject();
@@ -99,7 +105,7 @@ public class AuthService {
                 .setIssuedAt(now)
                 .setExpiration(expiration)
                 .addClaims(claims)
-                .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
+                .signWith(key)
                 .compact();
     }
 
