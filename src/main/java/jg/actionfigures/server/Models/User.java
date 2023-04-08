@@ -32,6 +32,9 @@ public class User {
     @Column(name="user_avatar_source_path")
     private String avatarSourcePath;
 
+    @Column(name="user_type")
+    private String type;
+
     
     public Integer getId() {
         return id;
@@ -79,6 +82,14 @@ public class User {
 
     public void setAvatarSourcePath(String avatarSourcePath) {
         this.avatarSourcePath = avatarSourcePath;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     
