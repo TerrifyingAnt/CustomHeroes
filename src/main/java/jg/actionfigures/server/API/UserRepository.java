@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import jg.actionfigures.server.Models.User;
 
 public interface UserRepository extends CrudRepository<User, Integer>{
-    public User findByLogin(String login);
+    User findByLogin(String login);
 }
