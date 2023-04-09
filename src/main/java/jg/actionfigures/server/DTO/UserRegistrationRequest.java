@@ -1,5 +1,7 @@
 package jg.actionfigures.server.DTO;
 
+
+// * Класс передачи информации о пользователе для регистрации
 public class UserRegistrationRequest {
 
     private String name;
@@ -9,7 +11,7 @@ public class UserRegistrationRequest {
     private String avatarSourcePath;
     private String type;
 
-    // Constructors
+
     public UserRegistrationRequest() {}
 
     public UserRegistrationRequest(String name, String login, String password, String phoneNumber, String avatarSourcePath, String type) {
@@ -21,7 +23,7 @@ public class UserRegistrationRequest {
         this.type = type;
     }
 
-    // Getters and setters
+
     public String getName() {
         return name;
     }

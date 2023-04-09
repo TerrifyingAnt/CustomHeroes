@@ -1,11 +1,13 @@
 package jg.actionfigures.server.DTO;
 
+
+// * Класс передачи информации о пользователе для входа
 public class UserLoginRequest {
 
     private String login;
     private String password;
 
-    // Constructors
+
     public UserLoginRequest() {}
 
     public UserLoginRequest(String login, String password) {
@@ -13,7 +15,7 @@ public class UserLoginRequest {
         this.password = password;
     }
 
-    // Getters and setters
+
     public String getLogin() {
         return login;
     }
