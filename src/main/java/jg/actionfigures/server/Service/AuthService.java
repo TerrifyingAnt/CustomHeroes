@@ -5,11 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import jg.actionfigures.server.constants.Constants;
-
 import javax.crypto.SecretKey;
 
-import org.apache.tomcat.util.bcel.Const;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -70,8 +67,9 @@ public class AuthService {
     }
 
     public void logout(String token) {
-        Claims claims = Jwts.parser()
+        Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)
+                .build()
                 .parseClaimsJws(token)
                 .getBody();
         String userLogin = claims.getSubject();
@@ -79,8 +77,9 @@ public class AuthService {
     }
 
     public User getUserFromToken(String token) throws Exception {
-        Claims claims = Jwts.parser()
+        Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)
+                .build()
                 .parseClaimsJws(token)
                 .getBody();
         String userLogin = claims.getSubject();

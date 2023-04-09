@@ -2,11 +2,8 @@ package jg.actionfigures.server.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
@@ -16,9 +13,6 @@ import jakarta.servlet.Filter;
 
 
 @Configuration
-@EnableGlobalMethodSecurity(
-        prePostEnabled = true
-)
 public class SecurityConfig implements WebSecurityCustomizer {
     
     @Override
@@ -37,7 +31,7 @@ public class SecurityConfig implements WebSecurityCustomizer {
         return http.authorizeHttpRequests()
             .requestMatchers("/api/auth/register").permitAll()
             .requestMatchers("/api/auth/login").permitAll()
-            .requestMatchers("/api/auth/logout").permitAll()
+            .requestMatchers("/api/auth/logout").hasAnyRole("ADMIN", "CUSTOMER", "CRAFTER")
             .requestMatchers("/test/xd").hasAnyRole("CUSTOMER")
             .requestMatchers("/api/auth/users").hasAnyRole("ADMIN")
             .and().csrf().disable()
