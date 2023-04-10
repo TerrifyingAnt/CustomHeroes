@@ -41,7 +41,8 @@ public class AuthController {
     
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UserRegistrationRequest registrationRequest) {
-        // Check if user with same login already exists
+        
+        // Проверить, существуют ли пользоватли с таким же логином
         if (userRepository.findByLogin(registrationRequest.getLogin()) != null) {
             return ResponseEntity.badRequest().body("Пользователь с таким логином уже существует");
         }
@@ -56,13 +57,13 @@ public class AuthController {
 
         newUser.setType("CUSTOMER");
         
-        // Save user to database
+        // Сохранение пользователя в постгрес
         userRepository.save(newUser);
         
-        // Generate JWT token
+        // Создание JWT токена
         String token = jwtUtils.generateToken(newUser, TokenEnum.ACCESS);
         String refreshToken = jwtUtils.generateToken(newUser, TokenEnum.REFRESH);
-        // Store user and token in Redis
+        // Сохранение токенов в редис
         storeUserInRedis(newUser.getLogin(), token, refreshToken);
         
         RefreshTokenResponse refreshTokenResponse = new RefreshTokenResponse(token, refreshToken);
@@ -72,23 +73,24 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody UserLoginRequest userLoginRequest) {
-        // Check if user with given login exists
+        
+        // Проверить валидность логина
         User user = userRepository.findByLogin(userLoginRequest.getLogin());
         if (user == null) {
             System.out.println(userLoginRequest.getLogin());
             return ResponseEntity.badRequest().body("Неправильный логин");
         }
         
-        // Check if password matches
+        // Проверить совпадение паролей
         if (!passwordEncoder.matches(userLoginRequest.getPassword(), user.getPassword())) {
             return ResponseEntity.badRequest().body("Неправильный пароль");
         }
         
-        // Generate JWT token
+        // Геренирование JWT токена
         String token = jwtUtils.generateToken(user, TokenEnum.ACCESS);
         String refreshToken = jwtUtils.generateToken(user, TokenEnum.REFRESH);
         
-        // Store user and token in Redis
+        // Сохранение токенов в редис
         storeUserInRedis(user.getLogin(), token, refreshToken);
 
         RefreshTokenResponse refreshTokenResponse = new RefreshTokenResponse(token, refreshToken);
@@ -99,11 +101,10 @@ public class AuthController {
     @PostMapping("/logout")
     public ResponseEntity<?> logoutUser(HttpServletRequest request1, @RequestBody RefreshTokenRequest request) {
         String authToken = jwtUtils.extractToken(request1);
-        String name = request.getUsername();
         String refreshToken = request.getRefreshToken();
+        
         if (authToken != null) {
             redisTemplate.delete(authToken);
-            redisTemplate.delete(name);
             redisTemplate.delete(refreshToken);
             return ResponseEntity.ok("Выход выполнен успешно");
         }
@@ -118,25 +119,20 @@ public class AuthController {
             String refreshToken = refreshTokenRequest.getRefreshToken();
             String username = refreshTokenRequest.getUsername();
             
-            // Get the user from the Redis cache
-            User user = (User) redisTemplate.opsForValue().get(username);
-            if (user == null) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Ошибка: Пользователь с таким логином не найден");    
-            }
-            
-            // Verify the refresh token
+            // Провекра валидности токена обновления
             if (!jwtUtils.validateToken(refreshToken, TokenEnum.REFRESH) && redisTemplate.opsForValue().get(refreshToken) != null) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("refresh");
             }
             
-            // Generate a new access token
+            // Создание новых токенов
+            User user = userRepository.findByLogin(username);
             String accessToken = jwtUtils.generateToken(user, TokenEnum.ACCESS);
             String newRefreshToken = jwtUtils.generateToken(user, TokenEnum.REFRESH);
             // Store the new access token in the Redis cache
             redisTemplate.delete(refreshToken);
-            storeUserInRedis(user.getLogin(), accessToken, newRefreshToken);
+            storeUserInRedis(username, accessToken, newRefreshToken);
             
-            // Return the new access token
+            // Генерация ответа
             RefreshTokenResponse response = new RefreshTokenResponse(accessToken, newRefreshToken);
             return ResponseEntity.ok(response);
 
@@ -153,12 +149,10 @@ public class AuthController {
     }
 
     private void storeUserInRedis(String login, String accessToken, String refreshToken) {
-        String userKey = login;
         String accessTokenKey = accessToken;
         String refreshTokenKey = refreshToken;
     
-        redisTemplate.opsForValue().set(userKey, userRepository.findByLogin(login), 365, TimeUnit.DAYS);
-        redisTemplate.opsForValue().set(accessTokenKey, login, 1, TimeUnit.DAYS);
+        redisTemplate.opsForValue().set(accessTokenKey, login, 1, TimeUnit.HOURS);
         redisTemplate.opsForValue().set(refreshTokenKey, login, 365, TimeUnit.DAYS);
     }
 
