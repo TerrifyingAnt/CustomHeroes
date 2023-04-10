@@ -85,27 +85,37 @@ public class AuthController {
         if (!passwordEncoder.matches(userLoginRequest.getPassword(), user.getPassword())) {
             return ResponseEntity.badRequest().body("Неправильный пароль");
         }
-        
-        // Геренирование JWT токена
-        String token = jwtUtils.generateToken(user, TokenEnum.ACCESS);
-        String refreshToken = jwtUtils.generateToken(user, TokenEnum.REFRESH);
-        
-        // Сохранение токенов в редис
-        storeUserInRedis(user.getLogin(), token, refreshToken);
 
-        RefreshTokenResponse refreshTokenResponse = new RefreshTokenResponse(token, refreshToken);
-        return ResponseEntity.ok(refreshTokenResponse);
+
+        if(redisTemplate.opsForValue().get(user.getLogin() + "_access_token") == null) {
+        
+            // Геренирование JWT токена
+            String token = jwtUtils.generateToken(user, TokenEnum.ACCESS);
+            String refreshToken = jwtUtils.generateToken(user, TokenEnum.REFRESH);
+
+            // Сохранение токенов в редис
+            storeUserInRedis(user.getLogin(), token, refreshToken);
+
+            RefreshTokenResponse refreshTokenResponse = new RefreshTokenResponse(token, refreshToken);
+            return ResponseEntity.ok(refreshTokenResponse);
+        }
+
+        String token = (String) redisTemplate.opsForValue().get(user.getLogin() + "_access_token");
+        String refreshToken = (String) redisTemplate.opsForValue().get(user.getLogin() + "_refresh_token");
+
+        RefreshTokenResponse response = new RefreshTokenResponse(token, refreshToken);
+        return ResponseEntity.ok(response);
+
     }
     
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logoutUser(HttpServletRequest request1, @RequestBody RefreshTokenRequest request) {
+    public ResponseEntity<?> logoutUser(HttpServletRequest request1) {
         String authToken = jwtUtils.extractToken(request1);
-        String refreshToken = request.getRefreshToken();
-        
+        String login = jwtUtils.extractUsername(authToken, TokenEnum.ACCESS);
         if (authToken != null) {
-            redisTemplate.delete(authToken);
-            redisTemplate.delete(refreshToken);
+            redisTemplate.delete(login + "_access_token");
+            redisTemplate.delete(login + "_refresh_token");
             return ResponseEntity.ok("Выход выполнен успешно");
         }
         return(ResponseEntity.badRequest().build());
@@ -152,8 +162,8 @@ public class AuthController {
         String accessTokenKey = accessToken;
         String refreshTokenKey = refreshToken;
     
-        redisTemplate.opsForValue().set(accessTokenKey, login, 1, TimeUnit.HOURS);
-        redisTemplate.opsForValue().set(refreshTokenKey, login, 365, TimeUnit.DAYS);
+        redisTemplate.opsForValue().set(login + "_access_token", accessTokenKey, 1, TimeUnit.HOURS);
+        redisTemplate.opsForValue().set(login + "_refresh_token", refreshTokenKey, 365, TimeUnit.DAYS);
     }
 
 }

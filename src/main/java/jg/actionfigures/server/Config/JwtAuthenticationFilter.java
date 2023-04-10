@@ -35,7 +35,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = jwtUtils.extractToken(request);
         
-        if (token != null && jwtUtils.validateToken(token, TokenEnum.ACCESS) && redisTemplate.hasKey(token)) {
+        if (token != null && jwtUtils.validateToken(token, TokenEnum.ACCESS) && redisTemplate.hasKey(jwtUtils.extractUsername(token, TokenEnum.ACCESS) + "_access_token")) {
             String username = jwtUtils.extractUsername(token, TokenEnum.ACCESS);
             List<String> roles = jwtUtils.extractRoles(token);
 
