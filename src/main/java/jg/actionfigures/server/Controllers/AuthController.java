@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jg.actionfigures.server.API.UserRepository;
-import jg.actionfigures.server.DTO.RefreshTokenRequest;
-import jg.actionfigures.server.DTO.RefreshTokenResponse;
-import jg.actionfigures.server.DTO.UserLoginRequest;
-import jg.actionfigures.server.DTO.UserRegistrationRequest;
-import jg.actionfigures.server.Models.User;
-import jg.actionfigures.server.Utils.JwtUtils;
-import jg.actionfigures.server.Utils.TokenEnum;
+import jg.actionfigures.server.AuthModule.DTO.RefreshTokenRequest;
+import jg.actionfigures.server.AuthModule.DTO.RefreshTokenResponse;
+import jg.actionfigures.server.AuthModule.DTO.UserLoginRequest;
+import jg.actionfigures.server.AuthModule.DTO.UserRegistrationRequest;
+import jg.actionfigures.server.AuthModule.Utils.JwtUtils;
+import jg.actionfigures.server.AuthModule.Utils.TokenEnum;
+import jg.actionfigures.server.Models.PostgerSql.User;
 
 @RestController
 @RequestMapping("/api/auth")

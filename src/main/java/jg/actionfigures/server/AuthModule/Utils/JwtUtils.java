@@ -1,4 +1,4 @@
-package jg.actionfigures.server.Utils;
+package jg.actionfigures.server.AuthModule.Utils;
 
 import java.util.Collections;
 import java.util.Date;
@@ -15,7 +15,7 @@ import io.jsonwebtoken.JwtParserBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
-import jg.actionfigures.server.Models.User;
+import jg.actionfigures.server.Models.PostgerSql.User;
 
 public class JwtUtils {
     

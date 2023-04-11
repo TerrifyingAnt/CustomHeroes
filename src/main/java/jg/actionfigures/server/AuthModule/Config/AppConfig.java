@@ -1,4 +1,4 @@
-package jg.actionfigures.server.Config;
+package jg.actionfigures.server.AuthModule.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

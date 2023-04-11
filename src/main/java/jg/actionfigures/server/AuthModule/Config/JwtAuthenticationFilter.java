@@ -1,4 +1,4 @@
-package jg.actionfigures.server.Config;
+package jg.actionfigures.server.AuthModule.Config;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -18,8 +18,8 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jg.actionfigures.server.Utils.JwtUtils;
-import jg.actionfigures.server.Utils.TokenEnum;
+import jg.actionfigures.server.AuthModule.Utils.JwtUtils;
+import jg.actionfigures.server.AuthModule.Utils.TokenEnum;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {

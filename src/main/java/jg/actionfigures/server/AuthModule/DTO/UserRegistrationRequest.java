@@ -1,4 +1,4 @@
-package jg.actionfigures.server.DTO;
+package jg.actionfigures.server.AuthModule.DTO;
 
 
 // * Класс передачи информации о пользователе для регистрации

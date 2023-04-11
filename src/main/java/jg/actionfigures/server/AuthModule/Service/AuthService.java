@@ -1,4 +1,4 @@
-package jg.actionfigures.server.Service;
+package jg.actionfigures.server.AuthModule.Service;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -16,7 +16,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jg.actionfigures.server.API.UserRepository;
-import jg.actionfigures.server.Models.User;
+import jg.actionfigures.server.Models.PostgerSql.User;
 
 @Service
 public class AuthService {

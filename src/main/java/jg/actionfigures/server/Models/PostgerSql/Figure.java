@@ -1,4 +1,4 @@
-package jg.actionfigures.server.Models;
+package jg.actionfigures.server.Models.PostgerSql;
 
 import java.sql.Date;
 
