@@ -41,6 +41,8 @@ public class SecurityConfig implements WebSecurityCustomizer {
             .requestMatchers("/api/auth/refresh").permitAll()
             .requestMatchers("/test/xd").hasAnyRole("CUSTOMER")
             .requestMatchers("/api/auth/users").hasAnyRole("ADMIN")
+            .requestMatchers("/test/messages").hasAnyRole("ADMIN", "CUSTOMER", "CRAFTER")
+            .requestMatchers("/test/update").hasAnyRole("ADMIN", "CUSTOMER", "CRAFTER")
             .and().csrf().disable()
             .formLogin().disable()
             .logout().disable()
