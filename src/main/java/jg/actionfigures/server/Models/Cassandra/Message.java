@@ -1,53 +1,56 @@
 package jg.actionfigures.server.Models.Cassandra;
 
 import java.util.Date;
-import java.util.UUID;
 
 import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+
+
+
 @Table("messages")
 public class Message {
 
     @PrimaryKey
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column("id")
-    private UUID id;
+    private Date id;
 
     @Column("from_user")
-    private UUID fromUser;
+    private Long fromUser;
 
     @Column("to_user")
-    private UUID toUser;
+    private Long toUser;
 
     @Column("content")
     private String content;
 
-    @Column("created_at")
-    private Date createdAt;
 
     // Getters and setters
-    public UUID getId() {
+    public Date getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Date id) {
         this.id = id;
     }
 
-    public UUID getFromUser() {
+    public Long getFromUser() {
         return fromUser;
     }
 
-    public void setFromUser(UUID fromUser) {
+    public void setFromUser(Long fromUser) {
         this.fromUser = fromUser;
     }
 
-    public UUID getToUser() {
+    public Long getToUser() {
         return toUser;
     }
 
-    public void setToUser(UUID toUser) {
+    public void setToUser(Long toUser) {
         this.toUser = toUser;
     }
 
@@ -59,12 +62,7 @@ public class Message {
         this.content = content;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
+
 
 }
