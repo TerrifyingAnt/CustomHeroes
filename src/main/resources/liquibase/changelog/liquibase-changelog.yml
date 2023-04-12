@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: liquibase/changelog/01-create-db.xml
+  - include:
+      file: liquibase/changelog/02-insert-users.xml

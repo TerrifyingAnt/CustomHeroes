@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="terrifyingAnt" id="04" context="cassandra">
+        <insert tableName="messages">
+             <column name="id" value="2023-04-11 00:00:00"/>
+            <column name="from_user" value="1"/>
+            <column name="to_user" value="2"/>
+            <column name="content" value="Hello World!"/>
+        </insert>
+        <insert tableName="messages">
+            <column name="id" value="2023-04-11 00:00:01"/>
+            <column name="from_user" value="2"/>
+            <column name="to_user" value="1"/>
+            <column name="content" value="How are you?"/>
+        </insert>
+        <insert tableName="messages">
+            <column name="id" value="2023-04-11 00:00:02"/>
+            <column name="from_user" value="1"/>
+            <column name="to_user" value="2"/>
+            <column name="content" value="I'm good, thanks!"/>
+        </insert>
+        <insert tableName="messages">
+            <column name="id" value="2023-04-11 00:00:03"/>
+            <column name="from_user" value="2"/>
+            <column name="to_user" value="1"/>
+            <column name="content" value="Good to hear!"/>
+        </insert>
+        <insert tableName="messages">
+             <column name="id" value="2023-04-11 00:00:04"/>
+            <column name="from_user" value="3"/>
+            <column name="to_user" value="4"/>
+            <column name="content" value="Hello World!"/>
+        </insert>
+        <insert tableName="messages">
+            <column name="id" value="2023-04-11 00:00:05"/>
+            <column name="from_user" value="4"/>
+            <column name="to_user" value="3"/>
+            <column name="content" value="How are you?"/>
+        </insert>
+        <insert tableName="messages">
+            <column name="id" value="2023-04-11 00:00:06"/>
+            <column name="from_user" value="3"/>
+            <column name="to_user" value="4"/>
+            <column name="content" value="I'm good, thanks!"/>
+        </insert>
+        <insert tableName="messages">
+            <column name="id" value="2023-04-11 00:00:07"/>
+            <column name="from_user" value="4"/>
+            <column name="to_user" value="3"/>
+            <column name="content" value="Good to hear!"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

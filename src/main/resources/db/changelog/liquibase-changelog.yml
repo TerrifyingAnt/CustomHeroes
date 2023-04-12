@@ -1,9 +1,0 @@
-databaseChangeLog:
-  - include:
-      file: db/changelog/01-create-db.xml
-  - include:
-      file: db/changelog/02-insert-users.xml
-  - include:
-      file: db/changelog/03-create-cassandra-db.xml
-  - include:
-      file: db/changelog/04-insert-messages-db.xml

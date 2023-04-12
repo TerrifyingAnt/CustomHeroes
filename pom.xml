@@ -16,6 +16,7 @@
 	<properties>
 		<java.version>17</java.version>
 	</properties>
+    
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -32,12 +33,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -96,11 +91,6 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -113,13 +103,6 @@
 			<artifactId>spring-boot-starter-data-cassandra</artifactId>
 			<version>3.0.5</version>
 			<scope>test</scope>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/com.datastax.oss/java-driver-core -->
-		<dependency>
-			<groupId>com.datastax.oss</groupId>
-			<artifactId>java-driver-core</artifactId>
-			<version>4.15.0</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/io.dropwizard.metrics/metrics-jmx -->
@@ -136,6 +119,21 @@
 			<version>4.0.4</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.6.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.datastax.oss/java-driver-core -->
+		<dependency>
+			<groupId>com.datastax.oss</groupId>
+			<artifactId>java-driver-core</artifactId>
+			<version>4.15.0</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
@@ -143,6 +141,73 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.liquibase</groupId>
+    			<artifactId>liquibase-maven-plugin</artifactId>
+				 <dependencies>
+				<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+				<dependency>
+					<groupId>org.postgresql</groupId>
+					<artifactId>postgresql</artifactId>
+					<version>42.6.0</version>
+				</dependency>
+
+				<!-- https://mvnrepository.com/artifact/com.datastax.oss/java-driver-core -->
+				<dependency>
+					<groupId>com.datastax.oss</groupId>
+					<artifactId>java-driver-core</artifactId>
+					<version>4.15.0</version>
+				</dependency>
+
+				<dependency>
+					<groupId>com.datastax.jdbc</groupId>
+					<artifactId>CassandraJDBC42</artifactId>
+					<version>4.2</version>
+					<scope>system</scope>
+					<systemPath>D:\desctop\mobileProgramming\1_COURSEWORK_MAIN\CustomHeroes\src\main\resources\liquibase\lib\CassandraJDBC42.jar</systemPath>
+				</dependency>
+
+				<!-- https://mvnrepository.com/artifact/org.liquibase.ext/liquibase-cassandra -->
+				<dependency>
+					<groupId>org.liquibase.ext</groupId>
+					<artifactId>liquibase-cassandra</artifactId>
+					<version>4.20.0</version>
+				</dependency>
+
+
+			</dependencies>
+
+				
+				<executions>
+					<execution>
+						<id>liquibase-update-postgresql</id>
+						<phase>process-resources</phase>
+						<configuration>
+							<changeLogFile>liquibase/changelog/liquibase-changelog.yml</changeLogFile>
+							<url>jdbc:postgresql://localhost:5432/custom_heroes</url>
+							<username>postgres</username>
+							<password>J7abcak47</password>
+						</configuration>
+						<goals>
+							<goal>update</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>liquibase-update-cassandra</id>
+						<phase>process-resources</phase>
+						<configuration>
+							<changeLogFile>liquibase/changelog/liquibase-changelog-cassandra.yml</changeLogFile>
+							<url>jdbc:cassandra://localhost:9042/custom_heroes_chat;DefaultKeyspace=custom_heroes_chat</url>
+							<systemPath>D:\desctop\mobileProgramming\1_COURSEWORK_MAIN\CustomHeroes\src\main\resources\liquibase\lib\CassandraJDBC42.jar</systemPath>
+
+						</configuration>
+						<goals>
+							<goal>update</goal>
+						</goals>
+					</execution>
+				</executions>
+
 			</plugin>
 		</plugins>
 	</build>

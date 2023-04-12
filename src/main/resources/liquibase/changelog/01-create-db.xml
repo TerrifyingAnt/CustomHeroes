@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="01" author="TerrifyingAnt" context="postgresql">
+
+  <!--ТАБЛИЧКА С ПОЛЬЗОВАТЕЛЯМИ-->
+    <createTable tableName="user_table"
+      remarks="Табличка с пользователями">
+
+      <column name="user_id" type="int" autoIncrement="true">
+        <constraints nullable="false" unique="true" primaryKey="true"/>
+      </column>
+
+      <column name="user_login" type="varchar(255)">
+        <constraints nullable="false" unique="true"/>
+      </column>
+
+      <column name="user_password" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+
+      <column name="user_type" type="varchar(50)">
+        <constraints nullable="false"/>
+      </column>
+
+      <column name="user_phone_number" type="varchar(50)">
+        <constraints nullable="false"/>
+      </column>
+
+      <column name="user_full_name" type="varchar(50)">
+        <constraints nullable="false"/>
+      </column>
+
+      <column name="user_avatar_source_path" type="varchar(255)">
+        <constraints nullable="true"/>
+      </column>
+    </createTable>
+
+  <!--ТАБЛИЧКА С ФИГУРКАМИ-->
+  <createTable tableName="figure_table">
+      <column name="figure_id" type="int" autoIncrement="true">
+        <constraints nullable="false" unique="true" primaryKey="true"/>
+      </column>
+
+      <column name="figure_price" type="int">
+        <constraints nullable="false"/>
+      </column>
+
+      <column name="figure_name" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+
+      <column name="figure_description" type="varchar(500)">
+        <constraints nullable="false"/>
+      </column>
+
+      <column name="figure_making_time" type="varchar(250)">
+        <constraints nullable="true"/>
+      </column>
+
+
+      <column name="figure_is_movable" type="boolean">
+        <constraints nullable="false"/>
+      </column>
+
+      <column name="figure_source_path" type="varchar(255)">
+        <constraints nullable="true"/>
+      </column>
+  </createTable>
+
+
+  <!--ТАБЛИЧКА С ЗАКАЗАМИ-->
+  <createTable tableName="order_table">
+      <column name="order_id" type="int" autoIncrement="true">
+        <constraints nullable="false" unique="true" primaryKey="true"/>
+      </column>
+
+      <column name="user_id" type="int">
+        <constraints nullable="false"/>
+      </column>
+
+      <column name="order_date" type="timestamp">
+        <constraints nullable="false"/>
+      </column>
+
+      <column name="order_status" type="varchar(100)">
+        <constraints nullable="false"/>
+      </column>
+  </createTable>
+
+    <addForeignKeyConstraint baseTableName="order_table" baseColumnNames="user_id"
+      constraintName="user_id_fk1"
+      referencedTableName="user_table" referencedColumnNames="user_id"/>
+
+
+  <!--ТАБЛИЧКА С НЕСКОЛЬКИМИ ФИГУРКАМИ В ЗАКАЗЕ-->
+  <createTable tableName="order_item_table">
+    
+    <column name="order_item_id" type="int" autoIncrement="true">
+      <constraints nullable="false" unique="true" primaryKey="true"/>
+    </column>
+
+    <column name="order_item_count" type="int" defaultValueNumeric="1">
+      <constraints nullable="false" />
+    </column>
+
+    <column name="order_id" type="int">
+      <constraints nullable="false"/>
+    </column>
+
+    <column name="figure_id" type="int">
+      <constraints nullable="false"/>
+    </column>
+
+  </createTable>
+
+  <addForeignKeyConstraint baseTableName="order_item_table" baseColumnNames="order_id"
+    constraintName="order_id_fk1"
+    referencedTableName="user_table" referencedColumnNames="user_id"/>
+
+  <addForeignKeyConstraint baseTableName="order_item_table" baseColumnNames="figure_id"
+    constraintName="figure_id_fk2"
+    referencedTableName="figure_table" referencedColumnNames="figure_id"/>
+
+
+  <!--ТАБЛИЧКА С ТЭГАМИ-->
+  <createTable tableName="tag_table">
+
+    <column name="tag_id" type="int" autoIncrement="true">
+      <constraints nullable="false" unique="true" primaryKey="true"/>
+    </column>
+
+    <column name="tag_title" type="varchar(255)">
+      <constraints nullable="false" unique="true"/>
+    </column>
+
+  </createTable>
+
+  <!--ТАБЛИЧКА С ФИЛЬТРАМИ-->
+  <createTable tableName="filter_table">
+
+    <column name="filter_id" type="int" autoIncrement="true">
+      <constraints nullable="false" unique="true" primaryKey="true"/>
+    </column>
+
+    <column name="tag_id" type="int">
+      <constraints nullable="false" unique="true"/>
+    </column>
+
+    <column name="figure_id" type="int">
+      <constraints nullable="false" unique="true"/>
+    </column>
+  </createTable>
+
+  <addForeignKeyConstraint baseTableName="filter_table" baseColumnNames="tag_id"
+    constraintName="tag_id_fk1"
+    referencedTableName="tag_table" referencedColumnNames="tag_id"/>
+
+  <addForeignKeyConstraint baseTableName="filter_table" baseColumnNames="figure_id"
+    constraintName="figure_id_fk2"
+    referencedTableName="figure_table" referencedColumnNames="figure_id"/>
+  </changeSet>
+</databaseChangeLog>

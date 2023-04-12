@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: liquibase/changelog/03-create-cassandra-db.xml
+  - include:
+      file: liquibase/changelog/04-insert-messages-db.xml
