@@ -165,7 +165,7 @@
 					<artifactId>CassandraJDBC42</artifactId>
 					<version>4.2</version>
 					<scope>system</scope>
-					<systemPath>D:\desctop\mobileProgramming\1_COURSEWORK_MAIN\CustomHeroes\src\main\resources\liquibase\lib\CassandraJDBC42.jar</systemPath>
+					<systemPath>${basedir}\src\main\resources\liquibase\lib\CassandraJDBC42.jar</systemPath>
 				</dependency>
 
 				<!-- https://mvnrepository.com/artifact/org.liquibase.ext/liquibase-cassandra -->
@@ -199,7 +199,7 @@
 						<configuration>
 							<changeLogFile>liquibase/changelog/liquibase-changelog-cassandra.yml</changeLogFile>
 							<url>jdbc:cassandra://localhost:9042/custom_heroes_chat;DefaultKeyspace=custom_heroes_chat</url>
-							<systemPath>D:\desctop\mobileProgramming\1_COURSEWORK_MAIN\CustomHeroes\src\main\resources\liquibase\lib\CassandraJDBC42.jar</systemPath>
+							<systemPath>${basedir}\src\main\resources\liquibase\lib\CassandraJDBC42.jar</systemPath>
 
 						</configuration>
 						<goals>
