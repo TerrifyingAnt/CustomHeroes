@@ -16,6 +16,7 @@ import jg.actionfigures.server.API.UserRepository;
 import jg.actionfigures.server.AuthModule.Utils.JwtUtils;
 import jg.actionfigures.server.AuthModule.Utils.TokenEnum;
 import jg.actionfigures.server.Models.Cassandra.Message;
+import jg.actionfigures.server.Models.PostgerSql.User;
 
 @RestController
 @RequestMapping("/test")
@@ -44,8 +45,10 @@ public class MainController {
         return newList;
     }
 
-    @PostMapping("/update")
-    public void sendMessages(@RequestBody Message message) {
+    @PostMapping("/upload")
+    public void sendMessages(HttpServletRequest request, @RequestBody Message message) {
+        User user = userRepository.findByLogin(jwtUtils.extractUsername(jwtUtils.extractToken(request), TokenEnum.ACCESS));
+        message.setFromUser(Long.valueOf(user.getId()));
         messageRepository.save(message);
     }
 }
