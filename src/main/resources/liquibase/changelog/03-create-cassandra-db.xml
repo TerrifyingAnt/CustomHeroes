@@ -11,13 +11,21 @@
                    
 <changeSet id="03" author="terrifyingAnt" context="cassandra">
     <createTable tableName="messages">
-        <column name="id" type="timestamp">
-            <constraints primaryKey="true"/>
-        </column>
-        <column name="from_user" type="bigint"/>
-        <column name="to_user" type="bigint"/>
+        <column name="username" type="bigint"/>
+        <column name="chatroomid" type="bigint"/>
+        <column name="date" type="timestamp"/>
+        <column name="fuser" type="bigint"/>    
+        <column name="tuser" type="bigint"/>
         <column name="content" type="text"/>
-        </createTable>
+    </createTable>
+
+    <addPrimaryKey
+        columnNames="username, chatroomid"
+        constraintName="pk_messages"
+        tableName="messages"/>
+    
 </changeSet>
 
 </databaseChangeLog>
+
+

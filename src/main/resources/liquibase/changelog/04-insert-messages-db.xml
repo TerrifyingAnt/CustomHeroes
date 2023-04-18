@@ -5,52 +5,36 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <changeSet author="terrifyingAnt" id="04" context="cassandra">
         <insert tableName="messages">
-             <column name="id" value="2023-04-11 00:00:00"/>
-            <column name="from_user" value="1"/>
-            <column name="to_user" value="2"/>
-            <column name="content" value="Hello World!"/>
+            <column name="username" valueNumeric="2"/>
+            <column name="chatRoomId" valueNumeric="1"/>
+            <column name="userFrom" valueNumeric="2"/>
+            <column name="userTo" valueNumeric="1"/>
+            <column name="content" value="Привет"/>
+            <column name="date" value="2011-02-03"/>
         </insert>
         <insert tableName="messages">
-            <column name="id" value="2023-04-11 00:00:01"/>
-            <column name="from_user" value="2"/>
-            <column name="to_user" value="1"/>
-            <column name="content" value="How are you?"/>
+            <column name="username" valueNumeric="2"/>
+            <column name="chatRoomId" valueNumeric="2"/>
+            <column name="userFrom" valueNumeric="2"/>
+            <column name="userTo" valueNumeric="3"/>
+            <column name="content" value="Здоров"/>
+            <column name="date" value="2012-02-03"/>
         </insert>
-        <insert tableName="messages">
-            <column name="id" value="2023-04-11 00:00:02"/>
-            <column name="from_user" value="1"/>
-            <column name="to_user" value="2"/>
-            <column name="content" value="I'm good, thanks!"/>
+         <insert tableName="messages">
+            <column name="username" valueNumeric="2"/>
+            <column name="chatRoomId" valueNumeric="2"/>
+            <column name="userFrom" valueNumeric="4"/>
+            <column name="userTo" valueNumeric="2"/>
+            <column name="content" value="Это 3 чат"/>
+            <column name="date" value="2013-02-03"/>
         </insert>
-        <insert tableName="messages">
-            <column name="id" value="2023-04-11 00:00:03"/>
-            <column name="from_user" value="2"/>
-            <column name="to_user" value="1"/>
-            <column name="content" value="Good to hear!"/>
-        </insert>
-        <insert tableName="messages">
-             <column name="id" value="2023-04-11 00:00:04"/>
-            <column name="from_user" value="3"/>
-            <column name="to_user" value="4"/>
-            <column name="content" value="Hello World!"/>
-        </insert>
-        <insert tableName="messages">
-            <column name="id" value="2023-04-11 00:00:05"/>
-            <column name="from_user" value="4"/>
-            <column name="to_user" value="3"/>
-            <column name="content" value="How are you?"/>
-        </insert>
-        <insert tableName="messages">
-            <column name="id" value="2023-04-11 00:00:06"/>
-            <column name="from_user" value="3"/>
-            <column name="to_user" value="4"/>
-            <column name="content" value="I'm good, thanks!"/>
-        </insert>
-        <insert tableName="messages">
-            <column name="id" value="2023-04-11 00:00:07"/>
-            <column name="from_user" value="4"/>
-            <column name="to_user" value="3"/>
-            <column name="content" value="Good to hear!"/>
+         <insert tableName="messages">
+            <column name="username" valueNumeric="2"/>
+            <column name="chatRoomId" valueNumeric="3"/>
+            <column name="userFrom" valueNumeric="1"/>
+            <column name="userTo" valueNumeric="2"/>
+            <column name="content" value="Это aksdjfhaks чат"/>
+            <column name="date" value="2013-04-03"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

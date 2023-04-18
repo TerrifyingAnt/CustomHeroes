@@ -2,56 +2,82 @@ package jg.actionfigures.server.Models.Cassandra;
 
 import java.util.Date;
 
+import org.springframework.data.cassandra.core.cql.Ordering;
+import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
 import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-
-
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 
 @Table("messages")
 public class Message {
 
-    @PrimaryKey
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column("id")
-    private Date id;
+    @PrimaryKeyColumn(name="username", ordinal = 0,
+    type = PrimaryKeyType.PARTITIONED)
+    @Column("username")
+    private Long username;
 
-    @Column("from_user")
-    private Long fromUser;
+    @PrimaryKeyColumn(name="chatroomid", ordinal = 0,
+    type = PrimaryKeyType.PARTITIONED)
+    @Column("chatroomid")
+    private Long chatRoomId;
 
-    @Column("to_user")
-    private Long toUser;
+    @PrimaryKeyColumn(name="date", ordinal = 0,
+    type = PrimaryKeyType.CLUSTERED, ordering = Ordering.ASCENDING)
+    @Column("date")
+    private Date date;
+
+    @Column("userfrom")
+    private Long userFrom;
+
+    @Column("userto")
+    private Long userTo;
 
     @Column("content")
     private String content;
 
-
-    // Getters and setters
-    public Date getId() {
-        return id;
+    public Long getUsername() {
+        return username;
     }
 
-    public void setId(Date id) {
-        this.id = id;
+    public void setUsername(Long username) {
+        this.username = username;
+    }
+
+    public Long getChatRoomId() {
+        return chatRoomId;
+    }
+
+    public void setChatRoomId(Long chatRoomId) {
+        this.chatRoomId = chatRoomId;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Long getFromUser() {
-        return fromUser;
+        return userFrom;
     }
 
-    public void setFromUser(Long fromUser) {
-        this.fromUser = fromUser;
+    public void setFromUser(Long userFrom) {
+        this.userFrom = userFrom;
     }
 
     public Long getToUser() {
-        return toUser;
+        return userTo;
     }
 
-    public void setToUser(Long toUser) {
-        this.toUser = toUser;
+    public void setToUser(Long userTo) {
+        this.userTo = userTo;
     }
 
     public String getContent() {
@@ -62,7 +88,6 @@ public class Message {
         this.content = content;
     }
 
-
-
+    
 
 }

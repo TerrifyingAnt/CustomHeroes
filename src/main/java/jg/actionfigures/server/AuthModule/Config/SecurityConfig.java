@@ -43,6 +43,7 @@ public class SecurityConfig implements WebSecurityCustomizer {
             .requestMatchers("/api/auth/users").hasAnyRole("ADMIN")
             .requestMatchers("/test/messages").hasAnyRole("ADMIN", "CUSTOMER", "CRAFTER")
             .requestMatchers("/test/upload").hasAnyRole("ADMIN", "CUSTOMER", "CRAFTER")
+            .requestMatchers("/test/chats").hasAnyRole("ADMIN", "CUSTOMER", "CRAFTER")
             .and().csrf().disable()
             .formLogin().disable()
             .logout().disable()
