@@ -166,5 +166,10 @@ public class AuthController {
         redisTemplate.opsForValue().set(login + "_refresh_token", refreshTokenKey, 365, TimeUnit.DAYS);
     }
 
+    @GetMapping("/me")
+    public User getUser(HttpServletRequest request) {
+        return userRepository.findByLogin(jwtUtils.extractUsername(jwtUtils.extractToken(request), TokenEnum.ACCESS));
+    }
+
 }
 
