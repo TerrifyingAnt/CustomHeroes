@@ -1,9 +1,7 @@
 package jg.actionfigures.server.Controllers;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,14 +36,12 @@ public class MainController {
         return "тест";
     }
 
-    @GetMapping("/messages")
-    public List<Message> getMessages(HttpServletRequest request) {
-        Long fromUser = Long.valueOf(userRepository.findByLogin(jwtUtils.extractUsername(jwtUtils.extractToken(request), TokenEnum.ACCESS)).getId());
-        List<Message> messagesFrom = (List<Message>) messageRepository.findByUserFrom(fromUser);
-        List<Message> messagesTo = (List<Message>) messageRepository.findByUserTo(fromUser);
-        System.out.println(fromUser);
-        List<Message> newList = Stream.concat(messagesFrom.stream(), messagesTo.stream()).toList();
-        return newList;
+    @PostMapping("/messages")
+    public List<Message> getMessages(@RequestBody Long chatRoomId) {
+        List<Message> messages = (List<Message>) messageRepository.findAllByChatRoomId(chatRoomId);
+        System.out.println(chatRoomId);
+        System.out.println(messages);
+        return messages;
     }
 
     @GetMapping("/chats")
@@ -64,6 +60,7 @@ public class MainController {
     public void sendMessages(HttpServletRequest request, @RequestBody Message message) {
         User user = userRepository.findByLogin(jwtUtils.extractUsername(jwtUtils.extractToken(request), TokenEnum.ACCESS));
         message.setFromUser(Long.valueOf(user.getId()));
+        System.out.println(message.getContent());
         messageRepository.save(message);
     }
 }

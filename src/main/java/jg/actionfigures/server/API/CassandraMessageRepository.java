@@ -5,8 +5,6 @@ import java.util.List;
 import org.springframework.data.cassandra.repository.AllowFiltering;
 import org.springframework.data.cassandra.repository.CassandraRepository;
 import org.springframework.data.cassandra.repository.Query;
-import org.springframework.data.repository.CrudRepository;
-
 import jg.actionfigures.server.Models.Cassandra.Message;
 
 
@@ -23,5 +21,8 @@ public interface CassandraMessageRepository extends CassandraRepository<Message,
     
     @AllowFiltering
     List<Message> findByChatRoomIdAndUsername(Long chatRoomId, Long username);
+
+    @AllowFiltering
+    List<Message> findAllByChatRoomId(Long chatRoomId);
 
 }
