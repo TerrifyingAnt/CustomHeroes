@@ -11,11 +11,6 @@ import org.springframework.data.cassandra.core.mapping.Table;
 @Table("messages")
 public class Message {
 
-    @PrimaryKeyColumn(name="username", ordinal = 0,
-    type = PrimaryKeyType.PARTITIONED)
-    @Column("username")
-    private Long username;
-
     @PrimaryKeyColumn(name="chatroomid", ordinal = 0,
     type = PrimaryKeyType.PARTITIONED)
     @Column("chatroomid")
@@ -27,21 +22,14 @@ public class Message {
     private Date date;
 
     @Column("userfrom")
-    private Long userFrom;
+    private String userFrom;
 
     @Column("userto")
-    private Long userTo;
+    private String userTo;
 
     @Column("content")
     private String content;
 
-    public Long getUsername() {
-        return username;
-    }
-
-    public void setUsername(Long username) {
-        this.username = username;
-    }
 
     public Long getChatRoomId() {
         return chatRoomId;
@@ -59,19 +47,19 @@ public class Message {
         this.date = date;
     }
 
-    public Long getFromUser() {
+    public String getFromUser() {
         return userFrom;
     }
 
-    public void setFromUser(Long userFrom) {
+    public void setFromUser(String userFrom) {
         this.userFrom = userFrom;
     }
 
-    public Long getToUser() {
+    public String getToUser() {
         return userTo;
     }
 
-    public void setToUser(Long userTo) {
+    public void setToUser(String userTo) {
         this.userTo = userTo;
     }
 

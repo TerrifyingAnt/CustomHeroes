@@ -4,11 +4,16 @@ CREATE KEYSPACE IF NOT EXISTS custom_heroes_chat
 USE custom_heroes_chat;
 
 CREATE TABLE IF NOT EXISTS messages (
-  username bigint,
   chatRoomId bigint,
   date timestamp,
-  userFrom bigint,
-  userTo bigint,
+  userFrom text,
+  userTo text,
   content text,
-  PRIMARY KEY ((username, chatroomid), date)
+  PRIMARY KEY ((chatRoomId), date)
+);
+
+CREATE  table if not EXISTS chats (
+  chatRoomId bigint,
+  user text,
+  PRIMARY KEY ((chatRoomId), user)
 );

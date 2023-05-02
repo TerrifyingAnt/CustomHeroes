@@ -16,12 +16,6 @@ public interface CassandraMessageRepository extends CassandraRepository<Message,
     @AllowFiltering
     List<Message> findByUserTo(Long userTo);
 
-    @Query("SELECT DISTINCT chatRoomId, username FROM messages WHERE username = ?0 ALLOW FILTERING")
-    List<Long> findUniqueChatRoomIdsByUser(Long user);
-    
-    @AllowFiltering
-    List<Message> findByChatRoomIdAndUsername(Long chatRoomId, Long username);
-
     @AllowFiltering
     List<Message> findAllByChatRoomId(Long chatRoomId);
 

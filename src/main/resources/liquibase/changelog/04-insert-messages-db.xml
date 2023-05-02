@@ -5,34 +5,30 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <changeSet author="terrifyingAnt" id="04" context="cassandra">
         <insert tableName="messages">
-            <column name="username" valueNumeric="2"/>
             <column name="chatRoomId" valueNumeric="1"/>
-            <column name="userFrom" valueNumeric="2"/>
-            <column name="userTo" valueNumeric="1"/>
+            <column name="userFrom" value="xd@xd.xd"/>
+            <column name="userTo" value="test@test.test"/>
             <column name="content" value="Привет"/>
             <column name="date" value="2011-02-03"/>
         </insert>
         <insert tableName="messages">
-            <column name="username" valueNumeric="2"/>
             <column name="chatRoomId" valueNumeric="2"/>
-            <column name="userFrom" valueNumeric="2"/>
-            <column name="userTo" valueNumeric="3"/>
+            <column name="userFrom" value="xd@xd.xd"/>
+            <column name="userTo" value="test2@test.test"/>
             <column name="content" value="Здоров"/>
             <column name="date" value="2012-02-03"/>
         </insert>
          <insert tableName="messages">
-            <column name="username" valueNumeric="2"/>
             <column name="chatRoomId" valueNumeric="2"/>
-            <column name="userFrom" valueNumeric="4"/>
-            <column name="userTo" valueNumeric="2"/>
+            <column name="userFrom" value="xd@xd.xd"/>
+            <column name="userTo" value="test2@test.test"/>
             <column name="content" value="Это 3 чат"/>
             <column name="date" value="2013-02-03"/>
         </insert>
          <insert tableName="messages">
-            <column name="username" valueNumeric="2"/>
             <column name="chatRoomId" valueNumeric="3"/>
-            <column name="userFrom" valueNumeric="1"/>
-            <column name="userTo" valueNumeric="2"/>
+            <column name="userFrom" value="test@test.test"/>
+            <column name="userTo" value="test2@test.test"/>
             <column name="content" value="Это aksdjfhaks чат"/>
             <column name="date" value="2013-04-03"/>
         </insert>

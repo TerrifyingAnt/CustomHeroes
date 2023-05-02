@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="terrifyingAnt" id="05" context="cassandra">
+        <insert tableName="chats">
+            <column name="chatRoomId" valueNumeric="1"/>
+            <column name="user" value="xd@xd.xd"/>
+        </insert>
+        <insert tableName="chats">
+            <column name="chatRoomId" valueNumeric="1"/>
+            <column name="user" value="test@test.test"/>
+        </insert>
+        <insert tableName="chats">
+            <column name="chatRoomId" valueNumeric="2"/>
+            <column name="user" value="xd@xd.xd"/>
+        </insert>
+        <insert tableName="chats">
+            <column name="chatRoomId" valueNumeric="2"/>
+            <column name="user" value="test2@test.test"/>
+        </insert>
+        <insert tableName="chats">
+            <column name="chatRoomId" valueNumeric="3"/>
+            <column name="user" value="test2@test.test"/>
+        </insert>
+        <insert tableName="chats">
+            <column name="chatRoomId" valueNumeric="3"/>
+            <column name="user" value="test@test.test"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
