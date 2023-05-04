@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +36,9 @@ public class MainController {
 
     @Autowired
     CassandraChatRepository chatRepository;
+
+    @Autowired
+    private SimpMessagingTemplate simpMessagingTemplate;
 
     private JwtUtils jwtUtils = new JwtUtils();
 
@@ -113,6 +118,12 @@ public class MainController {
         }
         System.out.println(answer);
         return answer;
+    }
+
+    @PostMapping("/sendMessage")
+    public ResponseEntity<?> sendMessage(@RequestBody Message chatMessage) {
+        simpMessagingTemplate.convertAndSendToUser(chatMessage.getToUser(), "/queue/privateChat", chatMessage);
+        return ResponseEntity.ok().build();
     }
     
 }
