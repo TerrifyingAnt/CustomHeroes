@@ -16,3 +16,6 @@ public interface CassandraChatRepository extends CassandraRepository<Chat, Integ
     @AllowFiltering
     List<Chat> findByChatRoomId(Long chatRoomId);
 }
+
+
+

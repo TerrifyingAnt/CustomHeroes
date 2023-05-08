@@ -2,8 +2,10 @@ package jg.actionfigures.server.Controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.servlet.http.HttpServletRequest;
 import jg.actionfigures.server.API.CassandraChatRepository;
 import jg.actionfigures.server.API.CassandraMessageRepository;
+import jg.actionfigures.server.API.MessageSender;
 import jg.actionfigures.server.API.UserRepository;
 import jg.actionfigures.server.AuthModule.Utils.JwtUtils;
 import jg.actionfigures.server.AuthModule.Utils.TokenEnum;
@@ -29,6 +32,9 @@ import jg.actionfigures.server.Models.PostgerSql.User;
 public class MainController {
 
     @Autowired
+    AmqpTemplate template;
+
+    @Autowired
     CassandraMessageRepository messageRepository;
 
     @Autowired
@@ -38,7 +44,12 @@ public class MainController {
     CassandraChatRepository chatRepository;
 
     @Autowired
-    private SimpMessagingTemplate simpMessagingTemplate;
+    MessageSender messageSender;
+
+    public void sendEmailToUser(String login, String emailMessage) {
+        messageSender.sendMessageToUser(login, emailMessage);
+        
+    }
 
     private JwtUtils jwtUtils = new JwtUtils();
 
@@ -77,6 +88,7 @@ public class MainController {
         message.setFromUser(jwtUtils.extractUsername(jwtUtils.extractToken(request), TokenEnum.ACCESS));
         System.out.println(message.getContent());
         messageRepository.save(message);
+        sendEmailToUser(message.getToUser(), message.getContent());
     }
 
 
@@ -118,12 +130,6 @@ public class MainController {
         }
         System.out.println(answer);
         return answer;
-    }
-
-    @PostMapping("/sendMessage")
-    public ResponseEntity<?> sendMessage(@RequestBody Message chatMessage) {
-        simpMessagingTemplate.convertAndSendToUser(chatMessage.getToUser(), "/queue/privateChat", chatMessage);
-        return ResponseEntity.ok().build();
     }
     
 }

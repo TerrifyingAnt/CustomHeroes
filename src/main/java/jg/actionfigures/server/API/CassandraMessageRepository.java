@@ -20,3 +20,6 @@ public interface CassandraMessageRepository extends CassandraRepository<Message,
     List<Message> findAllByChatRoomId(Long chatRoomId);
 
 }
+
+
+
