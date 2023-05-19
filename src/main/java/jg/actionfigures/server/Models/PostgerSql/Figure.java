@@ -18,7 +18,7 @@ public class Figure {
     @Column(name="figure_id")
     private Integer id;
 
-    @Column(name="figure_title")
+    @Column(name="figure_name")
     private String title;
 
     @Column(name="figure_description")
@@ -33,8 +33,8 @@ public class Figure {
     @Column(name="figure_is_movable")
     private Boolean isMovable;
 
-    @Column(name="figure_time_of_making")
-    private Date timeOfMaking;
+    @Column(name="figure_making_time")
+    private String timeOfMaking;
 
     @Column(name="figure_source_path")
     private String sourcePath;
@@ -87,11 +87,11 @@ public class Figure {
         this.isMovable = isMovable;
     }
 
-    public Date getTimeOfMaking() {
+    public String getTimeOfMaking() {
         return timeOfMaking;
     }
 
-    public void setTimeOfMaking(Date timeOfMaking) {
+    public void setTimeOfMaking(String timeOfMaking) {
         this.timeOfMaking = timeOfMaking;
     }
 

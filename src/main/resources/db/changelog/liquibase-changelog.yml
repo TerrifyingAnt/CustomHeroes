@@ -3,3 +3,9 @@ databaseChangeLog:
       file: db/changelog/01-create-db.xml
   - include:
       file: db/changelog/02-insert-users.xml
+  - include:
+      file: db/changelog/03-insert-tags.xml
+  - include:
+      file: db/changelog/04-insert-figures.xml
+  - include:
+      file: db/changelog/05-insert-filters.xml

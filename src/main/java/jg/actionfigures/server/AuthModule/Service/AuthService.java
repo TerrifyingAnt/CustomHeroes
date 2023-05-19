@@ -18,6 +18,7 @@ import io.jsonwebtoken.security.Keys;
 import jg.actionfigures.server.API.UserRepository;
 import jg.actionfigures.server.Models.PostgerSql.User;
 
+
 @Service
 public class AuthService {
 

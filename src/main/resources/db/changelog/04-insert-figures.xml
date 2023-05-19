@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="04" author="TerrifyingAnt">
+    <insert tableName="figure_table">
+        <column name="figure_name" value="Аянами Рей"/>
+        <column name="figure_description" value="Фигурка персонажа 'Аянами Рей' из известного аниме 'Евангелион'. Материалы: Пластик, Размеры: 26х12х12"/>
+        <column name="figure_price" value="4999.99"/>
+        <column name="figure_rating" value="5.0"/>
+        <column name="figure_is_movable" value="false"/>
+        <column name="figure_making_time" value="2 дня"/>
+        <column name="figure_source_path" value="path\to\folder"/>
+    </insert>
+    </changeSet>
+</databaseChangeLog>

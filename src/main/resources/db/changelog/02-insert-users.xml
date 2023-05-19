@@ -10,7 +10,7 @@
     <insert tableName="user_table">
       <column name="user_full_name" value="Test User"/>
       <column name="user_login" value="test@test.test"/>
-      <column name="user_password" value="qwerqwer"/>
+      <column name="user_password" value="$2a$10$VNpcVhmYFeGE/vkTz454geo4wNSv7zdvJ68p4y92d1DpgjjLSnK02"/>
       <column name="user_phone_number" value="88005553535"/>
       <column name="user_avatar_source_path" value="xd/xd/xd.jpg"/>
       <column name="user_type" value="CUSTOMER"/>
