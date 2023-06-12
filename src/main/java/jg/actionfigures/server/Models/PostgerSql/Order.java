@@ -25,7 +25,7 @@ public class Order {
     @JoinColumn(name="user_id")
     private User user;
 
-    @Column(name="order_state")
+    @Column(name="order_status")
     private String state;
 
     @Column(name="order_date")

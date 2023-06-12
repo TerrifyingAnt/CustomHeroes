@@ -26,7 +26,7 @@ public class JwtUtils {
     // * Сгенерировать токен
     public String generateToken(User user, TokenEnum tokenEnum) {
         Date now = new Date();
-        Date expirationTime = new Date(now.getTime() + TimeUnit.HOURS.toMillis(1));
+        Date expirationTime = new Date(now.getTime() + TimeUnit.DAYS.toMillis(365));
 
         Claims claims = Jwts.claims().setSubject(user.getLogin());
         claims.put("roles", user.getType());

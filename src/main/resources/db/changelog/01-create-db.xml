@@ -125,7 +125,7 @@
 
   <addForeignKeyConstraint baseTableName="order_item_table" baseColumnNames="order_id"
     constraintName="order_id_fk1"
-    referencedTableName="user_table" referencedColumnNames="user_id"/>
+    referencedTableName="order_table" referencedColumnNames="order_id"/>
 
   <addForeignKeyConstraint baseTableName="order_item_table" baseColumnNames="figure_id"
     constraintName="figure_id_fk2"

@@ -14,7 +14,17 @@
         <column name="figure_rating" value="5.0"/>
         <column name="figure_is_movable" value="false"/>
         <column name="figure_making_time" value="2 дня"/>
-        <column name="figure_source_path" value="path\to\folder"/>
+        <column name="figure_source_path" value="figures/default_figures/ayanami_rey"/>
+    </insert>
+
+    <insert tableName="figure_table">
+        <column name="figure_name" value="Татакай Акаков"/>
+        <column name="figure_description" value="Фигурка персонажа 'Эрен Срегер' из аниме 'Титака Акаков'. Материалы: Пластик, Размеры: 26х12х12"/>
+        <column name="figure_price" value="7999.99"/>
+        <column name="figure_rating" value="5.0"/>
+        <column name="figure_is_movable" value="false"/>
+        <column name="figure_making_time" value="3 дня"/>
+        <column name="figure_source_path" value="figures/default_figures/tataki_akakov"/>
     </insert>
     </changeSet>
 </databaseChangeLog>

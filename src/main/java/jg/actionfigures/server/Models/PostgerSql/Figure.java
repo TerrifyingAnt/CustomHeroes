@@ -1,6 +1,5 @@
 package jg.actionfigures.server.Models.PostgerSql;
 
-import java.sql.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

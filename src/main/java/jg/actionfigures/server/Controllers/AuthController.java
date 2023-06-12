@@ -158,11 +158,20 @@ public class AuthController {
         return ResponseEntity.ok(users);
     }
 
+    @PostMapping("/users/me")
+    public User getMe(HttpServletRequest request1) {
+        String authToken = jwtUtils.extractToken(request1);
+        String login = jwtUtils.extractUsername(authToken, TokenEnum.ACCESS);
+        User me = userRepository.findByLogin(login);
+        return me;
+
+    }
+
     private void storeUserInRedis(String login, String accessToken, String refreshToken) {
         String accessTokenKey = accessToken;
         String refreshTokenKey = refreshToken;
     
-        redisTemplate.opsForValue().set(login + "_access_token", accessTokenKey, 1, TimeUnit.HOURS);
+        redisTemplate.opsForValue().set(login + "_access_token", accessTokenKey, 365, TimeUnit.DAYS);
         redisTemplate.opsForValue().set(login + "_refresh_token", refreshTokenKey, 365, TimeUnit.DAYS);
     }
 
